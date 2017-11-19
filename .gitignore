@@ -1,0 +1,10 @@
+*/.gitignore
+*/target/*
+target/*
+.idea/*
+*.iml
+dependency-reduced-pom.xml
+.classpath
+.project
+.settings
+DB_Model\.mwb\.bak
