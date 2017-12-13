@@ -11,5 +11,17 @@
 
     <artifactId>pudge-server</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>io.transwarp</groupId>
+            <artifactId>pudge-protocol</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.transwarp</groupId>
+            <artifactId>mangix-utils</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>

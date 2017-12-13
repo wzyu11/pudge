@@ -7,9 +7,19 @@ import java.util.List;
  */
 public class PudgeRequest {
 
+    private long requestId;
+
     private String method;
 
     private List<Object> params;
+
+    public long getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(long requestId) {
+        this.requestId = requestId;
+    }
 
     public String getMethod() {
         return method;

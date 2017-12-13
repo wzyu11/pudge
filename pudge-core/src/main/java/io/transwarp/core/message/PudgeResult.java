@@ -5,9 +5,19 @@ package io.transwarp.core.message;
  */
 public class PudgeResult {
 
+    private long resultId;
+
     private ResultType resultType;
 
     private Object result;
+
+    public long getResultId() {
+        return resultId;
+    }
+
+    public void setResultId(long resultId) {
+        this.resultId = resultId;
+    }
 
     public ResultType getResultType() {
         return resultType;
