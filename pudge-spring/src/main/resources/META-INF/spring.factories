@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+io.transwarp.pudge.spring.server.PudgeServerAutoConfiguration,\
+io.transwarp.pudge.spring.client.PudgeClientAutoConfiguration

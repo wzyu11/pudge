@@ -13,7 +13,7 @@
         <module>pudge-client</module>
         <module>pudge-protocol</module>
         <module>pudge-server</module>
-        <module>pudge-common</module>
+        <module>pudge-spring</module>
     </modules>
 
     <properties>
@@ -60,9 +60,29 @@
             </dependency>
 
             <dependency>
-                <groupId>io.transwarp</groupId>
-                <artifactId>mangix-utils</artifactId>
+                <groupId>com.nirvana</groupId>
+                <artifactId>nirvana-common</artifactId>
                 <version>1.0-SNAPSHOT</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>4.3.13.RELEASE</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot</artifactId>
+                <version>1.5.7.RELEASE</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-configuration-processor -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-configuration-processor</artifactId>
+                <version>1.5.7.RELEASE</version>
             </dependency>
 
         </dependencies>

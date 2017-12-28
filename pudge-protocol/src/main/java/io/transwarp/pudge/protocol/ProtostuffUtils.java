@@ -6,6 +6,7 @@ import io.protostuff.Schema;
 
 /**
  * Created by Nirvana on 2017/12/13.
+ * TODO LinkedBuffer recycle.
  */
 public class ProtostuffUtils {
 

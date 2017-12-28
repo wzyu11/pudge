@@ -19,9 +19,10 @@
         </dependency>
 
         <dependency>
-            <groupId>io.transwarp</groupId>
-            <artifactId>mangix-utils</artifactId>
+            <groupId>com.nirvana</groupId>
+            <artifactId>nirvana-common</artifactId>
         </dependency>
+
     </dependencies>
 
 </project>
