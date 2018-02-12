@@ -22,11 +22,8 @@ public class ResultEncoder extends MessageToByteEncoder<FreshMeat> {
 
     @Override
     protected void encode(ChannelHandlerContext ctx, FreshMeat msg, ByteBuf out) {
-        LOGGER.info("encoding: {}", JSON.toJSON(msg));
+        LOGGER.debug("encoding: {}", JSON.toJSON(msg));
         byte[] bytes = ProtostuffUtils.serializer(msg, SCHEMA);
-        System.out.println(bytes.length);
-        FreshMeat meat = ProtostuffUtils.deserializer(bytes, SCHEMA);
-        System.out.println(meat.getMeat().getClass().getName());
         out.writeBytes(bytes);
     }
 }

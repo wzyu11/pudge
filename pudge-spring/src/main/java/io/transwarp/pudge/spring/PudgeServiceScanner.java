@@ -1,7 +1,7 @@
 package io.transwarp.pudge.spring;
 
-import com.nirvana.common.utils.scanner.AnnotationClassFilter;
-import com.nirvana.common.utils.scanner.PackageScanner;
+import com.nirvana.common.scanner.AnnotationClassFilter;
+import com.nirvana.common.scanner.PackageScanner;
 import io.transwarp.pudge.core.annotation.PudgeService;
 
 import java.util.ArrayList;

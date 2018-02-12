@@ -14,6 +14,9 @@ import io.transwarp.pudge.core.PudgeServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.nio.channels.spi.SelectorProvider;
+import java.util.concurrent.ThreadPoolExecutor;
+
 /**
  * Created by Nirvana on 2017/12/14.
  */
@@ -25,26 +28,39 @@ public abstract class AbstractNettyServer implements PudgeServer {
 
     private int port;
 
+    private int threadPoolSize;
+
     private Channel channel;
 
     private EventLoopGroup bossGroup;
 
     private EventLoopGroup workerGroup;
 
+    private ThreadPoolExecutor executor;
+
     public AbstractNettyServer() {
         this(DEFAULT_PORT);
     }
 
     public AbstractNettyServer(int port) {
+        this(port, Runtime.getRuntime().availableProcessors() * 2);
+    }
+
+    public AbstractNettyServer(int port, int threadPoolSize) {
         this.port = port;
+        this.threadPoolSize = threadPoolSize;
     }
 
     protected abstract FreshMeat doServe(PudgeHook hook);
 
     @Override
     public void start() {
+        executor = (ThreadPoolExecutor) PudgeThreadPool.getExecutor(threadPoolSize, -1);
+        LOGGER.info("Generate Pudge netty server worker with thread pool size: {}", threadPoolSize);
+
         bossGroup = new NioEventLoopGroup();
-        workerGroup = new NioEventLoopGroup();
+        // one worker more executor
+        workerGroup = new NioEventLoopGroup(1, new PudgeThreadFactory(), SelectorProvider.provider());
 
         ServerBootstrap b = new ServerBootstrap();
         b.group(bossGroup, workerGroup);
@@ -61,10 +77,12 @@ public abstract class AbstractNettyServer implements PudgeServer {
                 pipeline.addLast("handler", new SimpleChannelInboundHandler<PudgeHook>() {
                     @Override
                     protected void channelRead0(ChannelHandlerContext ctx, PudgeHook msg) {
-                        LOGGER.info("received request: {}", JSON.toJSON(msg));
-                        FreshMeat result = doServe(msg);
-                        LOGGER.info("send result: {}", JSON.toJSON(result));
-                        ctx.channel().writeAndFlush(result);
+                        executor.submit(() -> {
+                            LOGGER.debug("received request: {}", JSON.toJSON(msg));
+                            FreshMeat result = doServe(msg);
+                            LOGGER.debug("send result: {}", JSON.toJSON(result));
+                            ctx.channel().writeAndFlush(result);
+                        });
                     }
                 });
             }

@@ -20,6 +20,11 @@ public class PudgeNettyServer extends AbstractNettyServer {
         this.provider = provider;
     }
 
+    public PudgeNettyServer(int port, int threadPoolSize, MeatProvider provider) {
+        super(port, threadPoolSize);
+        this.provider = provider;
+    }
+
     @Override
     protected FreshMeat doServe(PudgeHook hook) {
         return provider.provide(hook);

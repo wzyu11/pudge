@@ -39,7 +39,13 @@ public class ContextInitializeListener implements ApplicationListener<Applicatio
                 PudgeMethodSource pudgeMethodSource = new SpringPudgeMethodSource(service.getName(), event.getApplicationContext());
                 if (pudgeMethodSource.size() > 0) {
                     MeatProvider meatProvider = new AbleMeatProvider(pudgeMethodSource);
-                    PudgeServer pudgeServer = new PudgeNettyServer(service.getPort(), meatProvider);
+
+                    PudgeServer pudgeServer;
+                    if (service.getThreadPoolSize() <= 0) {
+                        pudgeServer = new PudgeNettyServer(service.getPort(), meatProvider);
+                    } else {
+                        pudgeServer = new PudgeNettyServer(service.getPort(), service.getThreadPoolSize(), meatProvider);
+                    }
                     pudgeServers.add(pudgeServer);
                     pudgeServer.start();
                 }

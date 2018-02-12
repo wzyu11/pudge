@@ -22,7 +22,7 @@ public class RequestEncoder extends MessageToByteEncoder<PudgeHook> {
 
     @Override
     protected void encode(ChannelHandlerContext ctx, PudgeHook msg, ByteBuf out) {
-        LOGGER.info("encoding: {}", JSON.toJSON(msg));
+        LOGGER.debug("encoding: {}", JSON.toJSON(msg));
         byte[] bytes = ProtostuffUtils.serializer(msg, SCHEMA);
         out.writeBytes(bytes);
     }

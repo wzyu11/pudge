@@ -24,7 +24,7 @@ public class RequestDecoder extends MessageToMessageDecoder<ByteBuf> {
 
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf msg, List<Object> out) {
-        LOGGER.info("decoding: {}", JSON.toJSON(msg));
+        LOGGER.debug("decoding: {}", JSON.toJSON(msg));
         byte[] bytes = new byte[msg.readableBytes()];
         msg.readBytes(bytes);
         PudgeHook request = ProtostuffUtils.deserializer(bytes, SCHEMA);
